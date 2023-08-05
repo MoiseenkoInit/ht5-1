@@ -1,31 +1,70 @@
-﻿//Задача 36: Задайте одномерный массив, 
-//заполненный случайными числами. Найдите сумму элементов, 
-//стоящих на нечётных позициях.[3, 7, 23, 12] -> 19;[-4, -6, 89, 6] -> 0
-Console.WriteLine("Введите размер массива");
-int size = Convert.ToInt32(Console.ReadLine());
-int[] numbers = new int[size];
-FillArrayRandomNumbers(numbers);
-Console.WriteLine("массив: ");
+﻿// Задача 41: Пользователь вводит с клавиатуры M чисел. 
+//Посчитайте, сколько чисел больше 0 ввёл пользователь.
+//0, 7, 8, -2, -2 -> 2
+//1, -7, 567, 89, 223-> 4
+
+Console.Write("Введите числа через запятую: ");
+int[] numbers = StringToNum(Console.ReadLine());
 PrintArray(numbers);
 int sum = 0;
-for (int z = 0; z < numbers.Length; z+=2)
-    sum = sum + numbers[z];
-    Console.WriteLine($"всего {numbers.Length}, сумма элементов нечётных позиций = {sum}");
-void FillArrayRandomNumbers(int[] numbers)
+for (int i = 0; i < numbers.Length; i++)
 {
-    for(int i = 0; i < numbers.Length; i++)
-        {
-            numbers[i] = new Random().Next(1,10);
-        }
+    if (numbers[i] > 0)
+    {
+        sum++;
+    }
 }
-void PrintArray(int[] numbers)
+Console.WriteLine();
+Console.WriteLine($"количество значений больше 0 = {sum}");
+
+
+int[] StringToNum(string input)
+{
+    int count = 1;
+    for (int i = 0; i < input.Length; i++)
+    {
+        if (input[i] == ',')
+        {
+            count++;
+        }
+    }
+
+    int[] numbers = new int [count];
+    int index = 0;
+
+    for (int i = 0; i < input.Length; i++)
+    {
+        string temp = "";
+
+        while (input [i] != ',')
+        {
+        if(i != input.Length - 1)
+        {
+            temp += input [i].ToString();
+            i++;
+        }
+        else
+        {
+            temp += input [i].ToString();
+            break;
+        }
+        }
+        numbers[index] = Convert.ToInt32(temp);
+        index++;
+    }
+    return numbers;
+}
+
+
+void PrintArray(int[] array)
 {
     Console.Write("[ ");
-    for(int i = 0; i < numbers.Length; i++)
-        {
-            Console.Write(numbers[i] + " ");
-        }
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + " ");
+    }
     Console.Write("]");
-    Console.WriteLine();
 }
+
+
 
